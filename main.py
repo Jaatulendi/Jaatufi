@@ -116,21 +116,7 @@ async def account_login(bot: Client, m: Message):
         name = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@","").replace("*","").replace(".","").strip()
       except IndexError:
         pass
-      command_to_exec = [
-              "yt-dlp",
-              "--no-warnings",
-              "--socket-timeout",
-              "30",
-              "-R",
-              "25",
-              url,
-              "--fragment-retries",
-              "25",
-              "--external-downloader",
-              "aria2c",
-              "--downloader-args",
-              "aria2c: -x 16 -j 32"
-          ]
+      command_to_exec = f'{ytf} -R 25 --fragment-retries 25 --external-downloader aria2c --downloader-args "aria2c: -x 16 -j 32"'
       if "youtu" in url:
           ytf = f"b[height<={vid_format}][ext=mp4]/bv[height<={vid_format}][ext=mp4]+ba[ext=m4a]/b[ext=mp4]"
           command_to_exec.extend(["-f",ytf,"-o",name+".%(ext)s", ])
